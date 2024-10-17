@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenProject Work Package Relationships Graph</title>
+    <script src="lib/xlsx.full.min.js"></script>
+    <script src="lib/cytoscape.min.js"></script>
+    <style>
+        #fileInput {
+            margin-bottom: 1rem;
+        }
+
+        #cy {
+            width: 100%;
+            height: 95vh;
+            border: 1px solid #ccc;
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        body {
+            margin: 0;
+            padding: 10px;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+	#instructions {
+            float: right;
+	}
+	#top {
+            padding: 5px;
+	}
+    </style>
+</head>
+
+<body>
+    <div id="top">
+     <div id="instructions">
+       From your OpenProject server, download Work Packages in "XLS with relations" format
+       <br/>
+       In this screen, Replace "my.openproject.com" with the domain name of your OpenProject server
+       <br/>
+       Click "Choose File" and select XLS file downloaded earlier
+     </div>
+     <div id="userinput">
+       <input type="text" id="openprojectUrl" value="https://my.openproject.com" style="width: 300px;">
+       <input type="file" id="fileInput" accept=".xls,.xlsx">
+      </div>
+    </div>
+    <div id="cy"></div>
+    <div id="tooltip"></div>
+    <div id="error"></div>
+    <script src="graph.js"></script>
+</body>
+
+</html>

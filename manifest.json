@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "OpenProject Work Package Relationships Graph",
+  "version": "1.0.0",
+  "description": "Visualize OpenProject work package relationships from XLS files as a Graph",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
