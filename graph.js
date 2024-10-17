@@ -297,7 +297,17 @@ function renderGraph(elements) {
             tooltip.style.display = 'block';
         });
 
-        cy.on('mouseout', 'node', function () {
+        cy.on('mouseover', 'edge', function (event) {
+            var edge = event.target;
+            var tooltipText = edge.data('label');
+            tooltip.innerHTML = tooltipText;
+            tooltip.style.left = event.renderedPosition.x + 'px';
+            tooltip.style.top = event.renderedPosition.y + 'px';
+            tooltip.style.display = 'block';
+
+        });
+
+        cy.on('mouseout', 'node, edge', function () {
             tooltip.style.display = 'none';
         });
 
