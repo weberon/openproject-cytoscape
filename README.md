@@ -1,20 +1,19 @@
 # openproject-cytoscape
-A chrome extension to Visualize OpenProject work package relationships as a Network Graph
+This is a chrome extension to Visualize OpenProject work package relationships as a Network Graph
 
-Clone this repo, or download as zip and extract files.
+### Instructions
+- Clone this repo, or download as zip and extract files.
 
-Install in Chrome extensions Developer mode
-https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked
+- [Install the extracted folder as a Chrome extension using Developer mode](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
 
-Export work packages from openproject as XLS with relations
-https://www.openproject.org/docs/user-guide/work-packages/exporting/#xls-with-relations
+- Export work packages from openproject as [XLS with relations](https://www.openproject.org/docs/user-guide/work-packages/exporting/#xls-with-relations)
 
-Launch the installed chrome extension
+- Launch the installed chrome extension.
 
-Set the domain of your Open Project server
+- Set the domain of your Open Project server.
 
-Choose the XLS file. Wait for the graph to render
+- Choose the XLS file downloaded from OpenProject and wait for the graph to be rendered.
 
 ### Screenshot
-![screen](https://github.com/user-attachments/assets/6556ec12-7155-433b-aa61-8d572e8124f1)
 
+![screen](https://github.com/user-attachments/assets/2ee89fb4-ef59-4b49-906d-dd18053165c9)
