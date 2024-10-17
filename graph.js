@@ -281,50 +281,36 @@ function renderGraph(elements) {
                 animate: false,
             }
         });
+
         var tooltip = document.getElementById('tooltip');
-        cy.on('mouseover', 'node', function (e) {
-            {
-                var node = e.target;
-                tooltip.innerHTML = node.data('status') +
-                    '<br>' + node.data('timespent') + " hrs" +
-                    '<br>' + node.data('type').toUpperCase() +
-                    '<br>' + node.data('subject') +
-                    '<br>' + '<a href="' + node.data('url') +
-                    '" target="_blank">Open in OpenProject</a>';
-                tooltip.style.display = 'block';
-                tooltip.style.left = (e.renderedPosition.x + 10) + 'px';
-                tooltip.style.top = (e.renderedPosition.y + 10) + 'px';
-            }
-        });
-        cy.on('mouseover', 'edge', function (e) {
-            {
-                var node = e.target;
-                tooltip.innerHTML = node.data('label');
-                tooltip.style.display = 'block';
-                tooltip.style.left = (e.renderedPosition.x + 10) + 'px';
-                tooltip.style.top = (e.renderedPosition.y + 10) + 'px';
-            }
-        });
-        cy.on('mouseout', 'node', function (e) {
-            {
-                tooltip.style.display = 'none';
-            }
+
+        // Add tooltip functionality
+        cy.on('mouseover', 'node', function (event) {
+            var node = event.target;
+            var tooltipText = node.data('status') +
+                '&nbsp;' + node.data('type').toUpperCase() +
+                '&nbsp;' + node.data('timespent') + "&nbsp;hrs" +
+                '<br>' + node.data('subject');
+            tooltip.innerHTML = tooltipText;
+            tooltip.style.left = event.renderedPosition.x + 'px';
+            tooltip.style.top = event.renderedPosition.y + 'px';
+            tooltip.style.display = 'block';
         });
 
-        cy.on('mousemove', 'node', function (e) {
-            {
-                tooltip.style.left = (e.renderedPosition.x + 10) + 'px';
-                tooltip.style.top = (e.renderedPosition.y + 10) + 'px';
-            }
+        cy.on('mouseout', 'node', function () {
+            tooltip.style.display = 'none';
         });
 
-        cy.on('tap', 'node', function (e) {
-            {
-                var node = e.target;
-                window.open(node.data('url'), '_blank');
+        // Add click event
+        cy.on('tap', 'node', function (evt) {
+            var node = evt.target;
+            var url = node.data('url');
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                console.log('No URL available for this node');
             }
         });
-
         console.log('Graph rendered successfully');
     } catch (error) {
         console.error('Error in renderGraph:', error);

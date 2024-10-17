@@ -38,28 +38,30 @@
             display: none;
             z-index: 1000;
         }
-	#instructions {
+
+        #instructions {
             float: right;
-	}
-	#top {
+        }
+
+        #top {
             padding: 5px;
-	}
+        }
     </style>
 </head>
 
 <body>
     <div id="top">
-     <div id="instructions">
-       From your OpenProject server, download Work Packages in "XLS with relations" format
-       <br/>
-       In this screen, Replace "my.openproject.com" with the domain name of your OpenProject server
-       <br/>
-       Click "Choose File" and select XLS file downloaded earlier
-     </div>
-     <div id="userinput">
-       <input type="text" id="openprojectUrl" value="https://my.openproject.com" style="width: 300px;">
-       <input type="file" id="fileInput" accept=".xls,.xlsx">
-      </div>
+        <div id="instructions">
+            From your OpenProject server, download Work Packages in "XLS with relations" format
+            <br />
+            In this screen, Replace "my.openproject.com" with the domain name of your OpenProject server
+            <br />
+            Click "Choose File" and select XLS file downloaded earlier
+        </div>
+        <div id="userinput">
+            <input type="text" id="openprojectUrl" value="https://my.openproject.com" style="width: 300px;">
+            <input type="file" id="fileInput" accept=".xls,.xlsx">
+        </div>
     </div>
     <div id="cy"></div>
     <div id="tooltip"></div>

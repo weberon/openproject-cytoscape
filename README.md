@@ -6,7 +6,7 @@ This is a chrome extension to Visualize OpenProject work package relationships a
 
 - [Install the extracted folder as a Chrome extension using Developer mode](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
 
-- Export work packages from openproject as [XLS with relations](https://www.openproject.org/docs/user-guide/work-packages/exporting/#xls-with-relations)
+- Export work packages from openproject as [XLS with relations](https://www.openproject.org/docs/user-guide/work-packages/exporting/#xls-with-relations) with these columns - Status,Type,Spent time,Subject,Priority,Assignee,Accountable
 
 - Launch the installed chrome extension.
 
