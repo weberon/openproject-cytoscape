@@ -13,6 +13,12 @@ This is a chrome extension to Visualize OpenProject work package relationships a
 - Set the domain of your Open Project server.
 
 - Choose the XLS file downloaded from OpenProject and wait for the graph to be rendered.
+- Nodes
+  - shape is determined by work package Type
+  - color is determined by Status
+  - size is determined by Spent time
+- Edge
+  - color and style are determined by "Parent, Child" or otherwise
 
 ### Screenshot
 
