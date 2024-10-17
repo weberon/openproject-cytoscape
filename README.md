@@ -17,8 +17,11 @@ This is a chrome extension to Visualize OpenProject work package relationships a
   - shape is determined by work package Type
   - color is determined by Status
   - size is determined by Spent time
+  - hover on node to see details
+  - click on node to open the workpackage in OpenProject
 - Edge
   - color and style are determined by "Parent, Child" or otherwise
+  - hover on edge to see the edge Type
 
 ### Screenshot
 
