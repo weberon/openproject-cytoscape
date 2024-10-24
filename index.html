@@ -1,52 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenProject Graph Viewer</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="OP Graph">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="icon-192x192.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
     <title>OpenProject Work Package Relationships Graph</title>
     <script src="lib/xlsx.full.min.js"></script>
     <script src="lib/cytoscape.min.js"></script>
-    <style>
-        #fileInput {
-            margin-bottom: 1rem;
-        }
-
-        #cy {
-            width: 100%;
-            height: 95vh;
-            border: 1px solid #ccc;
-        }
-
-        #error {
-            color: red;
-            margin-top: 10px;
-        }
-
-        body {
-            margin: 0;
-            padding: 10px;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-
-        #tooltip {
-            position: absolute;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            display: none;
-            z-index: 1000;
-        }
-
-        #instructions {
-            float: right;
-        }
-
-        #top {
-            padding: 5px;
-        }
-    </style>
 </head>
 
 <body>
@@ -67,6 +36,13 @@
     <div id="tooltip"></div>
     <div id="error"></div>
     <script src="graph.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('/sw.js')
+	  .then((reg) => console.log('Service worker registered', reg))
+	  .catch((err) => console.log('Service worker not registered', err));
+      }
+    </script>
 </body>
 
 </html>

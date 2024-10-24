@@ -12,9 +12,8 @@ function handleFileSelect(event) {
             console.log('Flattened data:', flattened_df.slice(0, 5)); // Log first 5 rows
 
             const openprojectUrl = document.getElementById('openprojectUrl').value;
-            chrome.storage.sync.set({ openprojectUrl: openprojectUrl }, function () {
-                console.log('OpenProject URL saved');
-            });
+            localStorage.setItem('openprojectUrl', openprojectUrl);
+            console.log('OpenProject URL saved');
 
             const elements = processData(flattened_df, openprojectUrl);
             console.log('Processed elements:', elements.slice(0, 10)); // Log first 10 elements
@@ -37,30 +36,26 @@ function flattenWorkbook(workbook) {
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
         console.log('Original data:', data.slice(0, 5)); // Log first 5 rows
 
         const header1 = data[0];
         const header2 = data[1];
-
         const combinedHeader = [];
         let currentGroup = '';
 
         for (let i = 0; i < Math.max(header1.length, header2.length); i++) {
             const h1 = header1[i] || '';
             const h2 = header2[i] || '';
-
             if (h1 !== '') {
                 currentGroup = h1.trim();
             }
-
             // Always include the column, even if header2 is empty
             const headerName = h2 ? `${currentGroup}.${h2.trim()}` : currentGroup;
             combinedHeader.push(headerName);
+        }
 
-            if (headerName === 'Work packages.ID') {
-                console.log('ID column found at index:', i);
-            }
+        if (combinedHeader.includes('Work packages.ID')) {
+            console.log('ID column found at index:', combinedHeader.indexOf('Work packages.ID'));
         }
 
         console.log('Combined header:', combinedHeader);
@@ -74,7 +69,6 @@ function flattenWorkbook(workbook) {
 
         console.log('Flattened data sample:', newData.slice(0, 5)); // Log first 5 rows
         console.log('Flattened data length:', newData.length);
-
         return newData;
     } catch (error) {
         console.error('Error in flattenWorkbook:', error);
@@ -85,20 +79,16 @@ function flattenWorkbook(workbook) {
 function processData(data, openprojecturl) {
     try {
         const graphData = dfToGraph(data, openprojecturl);
-
         console.log('Processed nodes:', graphData.nodes.length);
         console.log('Processed edges:', graphData.edges.length);
-
         var ret = [...graphData.nodes, ...graphData.edges];
         console.log(ret);
         return ret;
-
     } catch (error) {
         console.error('Error in processData:', error);
         throw error;
     }
 }
-
 
 function dfToGraph(data, openprojecturl) {
     // Convert Work packages.ID and Relations.ID to integers, dropping rows with NaN values
@@ -137,8 +127,8 @@ function dfToGraph(data, openprojecturl) {
 
     // Create nodes and edges for Cytoscape.js
     const nodes = Object.values(uniqueNodes).map(node => ({ data: node }));
-
     const edges = {};
+
     data.forEach(row => {
         const key = [row['Work packages.ID'], row['Relations.ID']];
         const invKey = [key[1], key[0]];
@@ -166,12 +156,9 @@ function dfToGraph(data, openprojecturl) {
     };
 }
 
-// Helper functions (you'll need to implement these based on your color schemes and shapes)
+// Helper functions
 function getStatusColor(status) {
-    // Convert status to lowercase for case-insensitive matching
     status = status.toLowerCase().trim();
-
-    // Define the status groups and their corresponding colors
     const statusGroups = {
         'initial': ['new', 'to be scheduled'],
         'active': ['in progress', 'in development', 'in testing', 'in specification'],
@@ -180,32 +167,24 @@ function getStatusColor(status) {
         'closed': ['closed'],
         'terminated': ['rejected', 'test failed']
     };
-
     const colors = {
-        'initial': '#99CCFF',    // Light Blue
-        'active': '#66CC66',     // Light Green
-        'paused': '#FFCC00',     // Yellow
-        'completed': '#0033FF',  // Dark Blue
-        'closed': '#4D4D4D',     // Dark Gray
-        'terminated': '#CC3311'  // Dark Red
+        'initial': '#99CCFF',
+        'active': '#66CC66',
+        'paused': '#FFCC00',
+        'completed': '#0033FF',
+        'closed': '#4D4D4D',
+        'terminated': '#CC3311'
     };
-
-    // Find which group the status belongs to
     for (const [group, statuses] of Object.entries(statusGroups)) {
         if (statuses.includes(status)) {
             return colors[group];
         }
     }
-
-    // If status is not found in any group
     return "#AABBCC";
 }
 
 function getCytoscapeShape(workPackageType) {
-    // Convert input to lowercase for case-insensitive matching
     workPackageType = workPackageType.toLowerCase().trim();
-
-    // Define mapping of work package types to Cytoscape shapes
     const shapeMapping = {
         'task': 'round-rectangle',
         'milestone': 'vee',
@@ -217,8 +196,6 @@ function getCytoscapeShape(workPackageType) {
         'risk': 'star',
         'issue': 'right-rhomboid'
     };
-
-    // Return the corresponding shape or a default shape if not found
     return shapeMapping[workPackageType] || 'ellipse';
 }
 
@@ -266,7 +243,6 @@ function renderGraph(elements) {
                 {
                     selector: 'edge',
                     style: {
-                        //'label': 'data(label)',
                         'curve-style': 'bezier',
                         'target-arrow-shape': 'triangle',
                         'width': 2,
@@ -283,14 +259,13 @@ function renderGraph(elements) {
         });
 
         var tooltip = document.getElementById('tooltip');
-
         // Add tooltip functionality
         cy.on('mouseover', 'node', function (event) {
             var node = event.target;
             var tooltipText = node.data('status') +
-                '&nbsp;' + node.data('type').toUpperCase() +
-                '&nbsp;' + node.data('timespent') + "&nbsp;hrs" +
-                '<br>' + node.data('subject');
+                ' ' + node.data('type').toUpperCase() +
+                ' ' + node.data('timespent') + " hrs" +
+                '' + node.data('subject');
             tooltip.innerHTML = tooltipText;
             tooltip.style.left = event.renderedPosition.x + 'px';
             tooltip.style.top = event.renderedPosition.y + 'px';
@@ -304,7 +279,6 @@ function renderGraph(elements) {
             tooltip.style.left = event.renderedPosition.x + 'px';
             tooltip.style.top = event.renderedPosition.y + 'px';
             tooltip.style.display = 'block';
-
         });
 
         cy.on('mouseout', 'node, edge', function () {
@@ -321,19 +295,19 @@ function renderGraph(elements) {
                 console.log('No URL available for this node');
             }
         });
+
         console.log('Graph rendered successfully');
     } catch (error) {
         console.error('Error in renderGraph:', error);
     }
 }
 
-// When the popup loads, retrieve the saved URL and set it in the input field
+// When the page loads, retrieve the saved URL and set it in the input field
 document.addEventListener('DOMContentLoaded', function () {
-    chrome.storage.sync.get('openprojectUrl', function (data) {
-        if (data.openprojectUrl) {
-            document.getElementById('openprojectUrl').value = data.openprojectUrl;
-        }
-    });
+    const savedUrl = localStorage.getItem('openprojectUrl');
+    if (savedUrl) {
+        document.getElementById('openprojectUrl').value = savedUrl;
+    }
 });
 
 // Add event listener to file input
