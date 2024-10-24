@@ -1,5 +1,8 @@
 # openproject-cytoscape
-This is a chrome extension to Visualize OpenProject work package relationships as a Network Graph
+
+[Try it](https://weberon.github.io/openproject-cytoscape)
+
+The main branch contains a chrome extension to Visualize OpenProject work package relationships as a Network Graph
 
 ### Instructions
 - Clone this repo, or download as zip and extract files.
