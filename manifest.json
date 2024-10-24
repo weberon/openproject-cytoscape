@@ -1,5 +1,6 @@
 {
     "name": "OpenProject Graph Viewer",
+    "version": "1.0.0",
     "short_name": "OP Graph",
     "start_url": "/openproject-cytoscape/",
     "display": "fullscreen",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'op-graph-viewer-v4';
+const CACHE_NAME = 'op-graph-viewer-v1.0.0';
 const urlsToCache = [
     '/openproject-cytoscape/',
     '/openproject-cytoscape/graph.js',
