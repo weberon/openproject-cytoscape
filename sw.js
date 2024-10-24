@@ -2,8 +2,7 @@ const CACHE_NAME = 'op-graph-viewer-v4';
 const urlsToCache = [
     '/openproject-cytoscape/',
     '/openproject-cytoscape/graph.js',
-    '/openproject-cytoscape/icon-192x192.png',
-    '/openproject-cytoscape/icon-512x512.png'
+    '/openproject-cytoscape/scheme-network-svgrepo-com.svg',
     '/openproject-cytoscape/index.html',
     '/openproject-cytoscape/lib/cytoscape.min.js',
     '/openproject-cytoscape/lib/xlsx.full.min.js',
