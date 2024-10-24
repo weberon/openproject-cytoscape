@@ -1,7 +1,7 @@
 {
     "name": "OpenProject Graph Viewer",
     "short_name": "OP Graph",
-    "start_url": "/index.html",
+    "start_url": "/openproject-cytoscape/",
     "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#000000",

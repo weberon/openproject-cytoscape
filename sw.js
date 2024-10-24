@@ -1,11 +1,14 @@
-const CACHE_NAME = 'op-graph-viewer-v3';
+const CACHE_NAME = 'op-graph-viewer-v4';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/graph.js',
-    '/manifest.json',
-    '/icon-192x192.png',
-    '/icon-512x512.png'
+    '/openproject-cytoscape/',
+    '/openproject-cytoscape/graph.js',
+    '/openproject-cytoscape/icon-192x192.png',
+    '/openproject-cytoscape/icon-512x512.png'
+    '/openproject-cytoscape/index.html',
+    '/openproject-cytoscape/lib/cytoscape.min.js',
+    '/openproject-cytoscape/lib/xlsx.full.min.js',
+    '/openproject-cytoscape/manifest.json',
+    '/openproject-cytoscape/styles.css'
 ];
 
 self.addEventListener('install', (event) => {
