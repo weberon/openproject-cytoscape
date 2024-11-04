@@ -18,6 +18,10 @@ function handleFileSelect(event) {
             const elements = processData(flattened_df, openprojectUrl);
             console.log('Processed elements:', elements.slice(0, 10)); // Log first 10 elements
 
+            // Save elements to localStorage
+            localStorage.setItem('graphData', JSON.stringify(elements));
+            console.log('Graph data saved to localStorage');
+
             renderGraph(elements);
         } catch (error) {
             console.error('Error in handleFileSelect:', error);
@@ -49,6 +53,7 @@ function flattenWorkbook(workbook) {
             if (h1 !== '') {
                 currentGroup = h1.trim();
             }
+
             // Always include the column, even if header2 is empty
             const headerName = h2 ? `${currentGroup}.${h2.trim()}` : currentGroup;
             combinedHeader.push(headerName);
@@ -69,6 +74,7 @@ function flattenWorkbook(workbook) {
 
         console.log('Flattened data sample:', newData.slice(0, 5)); // Log first 5 rows
         console.log('Flattened data length:', newData.length);
+
         return newData;
     } catch (error) {
         console.error('Error in flattenWorkbook:', error);
@@ -138,6 +144,7 @@ function dfToGraph(data, openprojecturl) {
                 key.reverse();
                 relType = "parent of";
             }
+
             edges[key] = {
                 data: {
                     source: key[0].toString(),
@@ -259,6 +266,7 @@ function renderGraph(elements) {
         });
 
         var tooltip = document.getElementById('tooltip');
+
         // Add tooltip functionality
         cy.on('mouseover', 'node', function (event) {
             var node = event.target;
@@ -307,6 +315,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const savedUrl = localStorage.getItem('openprojectUrl');
     if (savedUrl) {
         document.getElementById('openprojectUrl').value = savedUrl;
+    }
+
+    // Load saved graph data from localStorage
+    const savedGraphData = localStorage.getItem('graphData');
+    if (savedGraphData) {
+        const elements = JSON.parse(savedGraphData);
+        renderGraph(elements);
+        console.log('Graph data loaded from localStorage');
     }
 });
 
