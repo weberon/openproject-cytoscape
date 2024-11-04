@@ -1,13 +1,14 @@
 # openproject-cytoscape
 
-[Try it](https://weberon.github.io/openproject-cytoscape)
+[Try it here](https://weberon.github.io/openproject-cytoscape)
+
 A Progressive Web App to Visualize OpenProject work package relationships as a Network Graph
 
 ### Instructions
 
 - Export work packages from openproject as [XLS with relations](https://www.openproject.org/docs/user-guide/work-packages/exporting/#xls-with-relations) with these columns - Status,Type,Spent time,Subject,Priority,Assignee,Accountable
 
-- [Visit](https://weberon.github.io/openproject-cytoscape)
+- Visit https://weberon.github.io/openproject-cytoscape
 
 - Set the domain of your Open Project server
 
